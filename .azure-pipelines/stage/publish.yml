@@ -165,50 +165,10 @@ jobs:
           set -e
           rm -rf $(Build.StagingDirectory)/.gnupg
 
-- job: package_arm64
-  displayName: Linux debs (arm64)
-  dependsOn: []
-  condition: |
-    and(not(canceled()),
-        eq(${{ parameters.runPackaging }}, 'true'))
-  timeoutInMinutes: 120
-  pool: "envoy-arm-small"
-  steps:
-  - task: DownloadBuildArtifacts@0
-    inputs:
-      buildType: current
-      artifactName: "release"
-      itemPattern: "release/arm64/bin/*"
-      targetPath: $(Build.StagingDirectory)
-
-  - template: ../ci.yml
-    parameters:
-      managedAgent: false
-      ciTarget: distribution
-      cacheName: distribution
-      rbe: false
-      artifactSuffix: ".arm64"
-      bazelBuildExtraOptions: "--sandbox_base=/tmp/sandbox_base"
-      publishTestResults: false
-      tmpfsDockerDisabled: true
-      stepsPre:
-      - template: ../gpg.yml
-        parameters:
-          authGPGPassphrase: ${{ parameters.authGPGPassphrase }}
-          authGPGPath: ${{ parameters.authGPGPath }}
-          authGPGKey: ${{ parameters.authGPGKey }}
-          pathGPGConfiguredHome: /build/.gnupg
-          pathGPGHome: $(Build.StagingDirectory)/.gnupg
-      stepsPost:
-      - bash: |
-          set -e
-          rm -rf $(Build.StagingDirectory)/.gnupg
-
 - job: signed_release
   displayName: Signed binaries
   dependsOn:
   - package_x64
-  - package_arm64
   condition: |
     and(succeeded(),
         eq(${{ parameters.runPackaging }}, 'true'))

@@ -83,22 +83,6 @@ stages:
       runBuild: variables['RUN_BUILD']
       tmpfsDockerDisabled: true
 
-- stage: linux_arm64
-  displayName: Linux arm64
-  dependsOn: ${{ parameters.buildStageDeps }}
-  variables:
-    RUN_BUILD: $[stageDependencies.env.repo.outputs['run.build']]
-  jobs:
-  - template: stage/linux.yml
-    parameters:
-      cacheTestResults: ${{ parameters.cacheTestResults }}
-      rbe: false
-      artifactSuffix: .arm64
-      timeoutBuild: 180
-      pool: envoy-arm-large
-      runBuild: variables['RUN_BUILD']
-      bazelBuildExtraOptions: "--sandbox_base=/tmp/sandbox_base"
-
 - stage: check
   displayName: Checks (Linux x64)
   dependsOn: ${{ parameters.checkStageDeps }}
@@ -116,7 +100,7 @@ stages:
 
 - stage: publish
   displayName: Publish
-  dependsOn: ["env", "linux_x64", "linux_arm64"]
+  dependsOn: ["env", "linux_x64"]
   variables:
     RUN_DOCKER: $[stageDependencies.env.repo.outputs['run.docker']]
     RUN_PACKAGING: $[stageDependencies.env.repo.outputs['run.packaging']]

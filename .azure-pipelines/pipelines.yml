@@ -13,6 +13,8 @@ pr: none
 
 
 variables:
+- name: System.Debug
+  value: true
 - name: agentUbuntu
   value: ubuntu-22.04
 
