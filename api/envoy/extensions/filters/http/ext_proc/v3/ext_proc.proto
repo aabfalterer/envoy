@@ -150,10 +150,8 @@ message ExternalProcessor {
   // timeout when the filter is running in asynchronous mode. Zero is a valid
   // config which means the timer will be triggered immediately. If not
   // configured, default is 200 milliseconds.
-  google.protobuf.Duration message_timeout = 7 [(validate.rules).duration = {
-    lte {seconds: 3600}
-    gte {}
-  }];
+  google.protobuf.Duration message_timeout = 7
+      [(validate.rules).duration = {lte {seconds: 3600} gte {}}];
 
   // Optional additional prefix to use when emitting statistics. This allows to distinguish
   // emitted statistics between configured *ext_proc* filters in an HTTP filter chain.
@@ -175,10 +173,8 @@ message ExternalProcessor {
   // Specify the upper bound of
   // :ref:`override_message_timeout <envoy_v3_api_field_service.ext_proc.v3.ProcessingResponse.override_message_timeout>`
   // If not specified, by default it is 0, which will effectively disable the ``override_message_timeout`` API.
-  google.protobuf.Duration max_message_timeout = 10 [(validate.rules).duration = {
-    lte {seconds: 3600}
-    gte {}
-  }];
+  google.protobuf.Duration max_message_timeout = 10
+      [(validate.rules).duration = {lte {seconds: 3600} gte {}}];
 
   // Prevents clearing the route-cache when the
   // :ref:`clear_route_cache <envoy_v3_api_field_service.ext_proc.v3.CommonResponse.clear_route_cache>`

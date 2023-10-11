@@ -66,10 +66,7 @@ message RateLimitQuotaUsageReports {
     BucketId bucket_id = 1 [(validate.rules).message = {required: true}];
 
     // Time elapsed since the last report.
-    google.protobuf.Duration time_elapsed = 2 [(validate.rules).duration = {
-      required: true
-      gt {}
-    }];
+    google.protobuf.Duration time_elapsed = 2 [(validate.rules).duration = {required: true gt {}}];
 
     // Requests the data plane has allowed through.
     uint64 num_requests_allowed = 3;
@@ -242,9 +239,7 @@ message RateLimitQuotaResponse {
 //   The order of ``BucketId`` keys do not matter. Buckets ``{ a: 'A', b: 'B' }`` and
 //   ``{ b: 'B', a: 'A' }`` are identical.
 message BucketId {
-  map<string, string> bucket = 1 [(validate.rules).map = {
-    min_pairs: 1
-    keys {string {min_len: 1}}
-    values {string {min_len: 1}}
-  }];
+  map<string, string> bucket = 1 [
+    (validate.rules).map = {min_pairs: 1 keys {string {min_len: 1}} values {string {min_len: 1}}}
+  ];
 }

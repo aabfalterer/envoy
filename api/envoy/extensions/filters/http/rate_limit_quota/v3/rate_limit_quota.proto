@@ -390,10 +390,8 @@ message RateLimitQuotaBucketSettings {
   // After sending the initial report, the data plane is to continue reporting the bucket usage with
   // the internal specified in this field.
   // [#comment: 100000000 nanoseconds = 0.1 seconds]
-  google.protobuf.Duration reporting_interval = 2 [(validate.rules).duration = {
-    required: true
-    gt {nanos: 100000000}
-  }];
+  google.protobuf.Duration reporting_interval = 2
+      [(validate.rules).duration = {required: true gt {nanos: 100000000}}];
 
   // Customize the deny response to the requests over the rate limit.
   // If not set, the filter will be configured as if an empty message is set,
