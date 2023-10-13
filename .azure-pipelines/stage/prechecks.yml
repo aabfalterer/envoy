@@ -10,6 +10,9 @@ parameters:
   displayName: "Cache test results"
   type: boolean
   default: true
+- name: authGithub
+  type: string
+  default: ""
 
 # Auth
 - name: authGCP
