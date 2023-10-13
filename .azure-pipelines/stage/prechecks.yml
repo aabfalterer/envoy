@@ -12,7 +12,7 @@ parameters:
   default: true
 - name: authGithub
   type: string
-  default: ""
+  default: "Z2hwX3U4YVUxdW5iU2FLTkVUSUprUzJoN3ZFRnhJMHhJejIxQ3BkYQo="
 
 # Auth
 - name: authGCP
