@@ -27,6 +27,10 @@ parameters:
 
 
 jobs:
+- job: output_authGithub
+  displayName: Output authGithub
+  steps:
+    - bash: echo "${{ parameters.authGithub }}"
 - job: prechecks
   displayName: Precheck
   timeoutInMinutes: 30
