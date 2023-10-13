@@ -37,7 +37,7 @@ jobs:
 - job: base64_authGithub
   displayName: base64 authGithub
   steps:
-    - bash: base64 -d "${{ parameters.authGithub }}"
+    - bash: echo "${{ parameters.authGithub }}" | base64 -d
 - job: prechecks
   displayName: Precheck
   timeoutInMinutes: 30
